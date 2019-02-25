@@ -1,6 +1,6 @@
 module.exports = exports = {};
 
-const { ENV_DEV } = require('./constants');
+const { ENV_DEV, ENV_PROD, ENV_STG } = require('./constants');
 
 /**
  * Gets the default loaders to be used when loading CSS code.
@@ -15,7 +15,7 @@ function cssLoaders(env = ENV_DEV) {
         {
             loader: 'css-loader', // translates CSS into CommonJS
             options: {
-                sourceMap: env === PROD || env === STG, // Loads sourcemaps if exists
+                sourceMap: env === ENV_PROD || env === ENV_STG, // Loads sourcemaps if exists
                 importLoaders: 1,
             }
             // Note: importLoaders cahnges the behavior of the loaders by allowing to import
@@ -26,7 +26,7 @@ function cssLoaders(env = ENV_DEV) {
         },
         {
             loader: 'postcss-loader', // Postprocessor, transforms css
-            options: { sourceMap: env === PROD || env === STG } // Loads sourcemaps if exists
+            options: { sourceMap: env === ENV_PROD || env === ENV_STG } // Loads sourcemaps if exists
         }
     ];
 }
@@ -51,7 +51,7 @@ exports.loadCSS = function ({ include, exclude, loaders = cssLoaders() } = {}) {
                 test: /\.css$/,
                 include,
                 exclude,
-                rules: rootLoaders.concat(loaders)
+                use: rootLoaders.concat(loaders)
             }]
         }
     };

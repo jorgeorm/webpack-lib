@@ -1,6 +1,6 @@
 {
   "name": "webpack-lib",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A set of cross project webpack configs in a functional library",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,11 @@
   "homepage": "https://github.com/jorgeorm/webpack-lib#readme",
   "dependencies": {
     "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
     "postcss-loader": "^3.0.0",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
   }
 }

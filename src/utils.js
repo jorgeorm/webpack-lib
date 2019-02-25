@@ -1,6 +1,7 @@
 module.exports = exports = {};
 
 const HMRPlugin = require('webpack').HotModuleReplacementPlugin;
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 /**
  * Configures webpack-dev-server, webpack-dev-server keeps bundles in memory.
@@ -46,3 +47,14 @@ exports.webpackDevServer = ({ host, port, historyApiFallback = false, hmr = fals
 
     return wdsConfig;
 }
+
+/**
+ * Adds plugin for generating html by using html-webpack-plugin
+ * 
+ * @param {object} config - @see https://github.com/jantimon/html-webpack-plugin
+ */
+exports.htmlPlugin = (config = {}) => ({
+    plugins: [
+        new HtmlWebpackPlugin(config)
+    ]
+})

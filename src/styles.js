@@ -40,7 +40,7 @@ function cssLoaders(env = ENV_DEV) {
  * @param {string | array} [css.exclude] - Directories that are not going to be parsed by the css loader
  * @return {object} - Webpack configuration for the vanilla css loader
  */
-exports.loadCSS = function ({ include, exclude, loaders = cssLoaders() } = {}) {
+exports.loadCSS = ({ include, exclude, loaders = cssLoaders() } = {}) => {
     if (typeof loaders === 'undefined' || !loaders) throw Error('An array of loaders must be provided');
     
     const rootLoaders = [ 'style-loader' ];

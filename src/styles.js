@@ -57,9 +57,9 @@ function sassLoaders(env = DEV, baseLoaders = cssLoaders(env, 0)) {
  */
 exports.loadCSS = ({ loaders = cssLoaders(), include, exclude } = {}) => {
     if (typeof loaders === 'undefined' || !loaders) throw Error('An array of loaders must be provided');
-    
-    const rootLoaders = [ 'style-loader' ];
-    
+
+    const rootLoaders = ['style-loader'];
+
     return {
         module: {
             rules: [{
@@ -88,7 +88,7 @@ exports.loadCSS = ({ loaders = cssLoaders(), include, exclude } = {}) => {
  * @param {string | array} [sass.exclude] - Directories that are not going to be parsed by the sass loader
  * @return {object} - Webpack configuration for the vanilla sass loader
  */
-exports.loadSASS = ( { loaders = sassLoaders(), include, exclude } ) => ({
+exports.loadSASS = ({ loaders = sassLoaders(), include, exclude }) => ({
     module: {
         rules: [{
             test: /\.s(c|a)ss$/,
@@ -105,3 +105,34 @@ exports.loadSASS = ( { loaders = sassLoaders(), include, exclude } ) => ({
         }]
     }
 })
+
+/**
+ * Configures webpack loader for app wide vanilla css and extracts it to a file
+ * @see {@link https://github.com/webpack-contrib/mini-css-extract-plugin}
+ * @param {object} css - Css loader configuration object
+ * @param {MiniCssExtractPlugin} css.extractor - Instance of MiniCssExtractPlugin to be used by the loader, each extractor will generate its own bundle
+ * @param {string} [css.env] - Environment that's going to be used to parse the configuration
+ * @param {array} [css.loaders] - Loaders that are going to be used to process the rule by default loaders will be obtained by the cssLoaders function
+ * @param {string | array} [css.include] - Directory to be scanned for vanilla css code
+ * @param {string | array} [css.exclude] - Directories that are not going to be parsed by the css loader
+ * @param {string} [css.filename] - Pattern that webpack is going to use to name the bundle
+ * @return {object} - Webpack configuration for the vanilla css loader
+ */
+exports.extractCSS = ({ extractor, env = ENV_PROD, loaders = cssLoaders(env), include, exclude, filename='[name].css' } = {}) => {
+    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+    const extractorInstance = extractor || new MiniCssExtractPlugin({
+        filename
+    });
+
+    return {
+        module: {
+            rules: [{
+                test: /\.css$/,
+                include,
+                exclude,
+                use: [ MiniCssExtractPlugin.loader ].concat(loaders)
+            }]
+        },
+        plugins: [extractorInstance]
+    };
+}

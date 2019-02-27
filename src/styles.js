@@ -1,12 +1,14 @@
 module.exports = exports = {};
+const PurgeCSSPlugin = require('purgecss-webpack-plugin');
 
 const { ENV_DEV, ENV_PROD, ENV_STG } = require('./constants');
+
 
 /**
  * Gets the default loaders to be used when loading CSS code.
  * Loaders will allow to use future css feature due to the use of postcss
  * Setup postcss for the features you want. @see {@link https://github.com/postcss/postcss-loader}
- * 
+ *
  * @param {string} [env=ENV_DEV]
  * @param {number} importLoaders importLoaders cahnges the behavior of the loaders by allowing to import .scss or .less or whatever other loader in a @import
  * @returns {array}
@@ -136,3 +138,15 @@ exports.extractCSS = ({ extractor, env = ENV_PROD, loaders = cssLoaders(env), in
         plugins: [extractorInstance]
     };
 }
+
+/**
+ * Configures purgecss-webpack-plugin to remove unused css.
+ * 
+ * @param {Object} pureCssConfig @see https://github.com/FullHuman/purgecss-webpack-plugin#options
+ * @return {Object}
+*/
+exports.purgeCSS = (pureCssConfig) => {
+    if (typeof pureCssConfig === 'undefined') throw Error('A configuration object for purgecss must be provided, see https://github.com/FullHuman/purgecss-webpack-plugin#options')
+
+    return { plugins: [ new PurgeCSSPlugin(pureCssConfig) ] }
+};

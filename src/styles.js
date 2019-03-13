@@ -132,7 +132,10 @@ exports.extractCSS = ({ extractor, env = ENV_PROD, loaders = cssLoaders(env), in
                 test: /\.css$/,
                 include,
                 exclude,
-                use: [ MiniCssExtractPlugin.loader ].concat(loaders)
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    ...loaders
+                ]
             }]
         },
         plugins: [extractorInstance]

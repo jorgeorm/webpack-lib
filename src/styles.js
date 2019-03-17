@@ -60,8 +60,6 @@ function sassLoaders(env = DEV, baseLoaders = cssLoaders(env, 0)) {
 exports.loadCSS = ({ loaders = cssLoaders(), include, exclude } = {}) => {
     if (typeof loaders === 'undefined' || !loaders) throw Error('An array of loaders must be provided');
 
-    const rootLoaders = ['style-loader'];
-
     return {
         module: {
             rules: [{

@@ -34,7 +34,7 @@ function cssLoaders(env = ENV_DEV, importLoaders = 1) {
  * @param {string} [env] - Represents the environment that's going to parse the config 'production', 'staging', 'development'
  * @param {array} baseLoaders - Array of loaders to be used after loading the specific sass files
  */
-function sassLoaders(env = DEV, baseLoaders = cssLoaders(env, 0)) {
+function sassLoaders(env = ENV_DEV, baseLoaders = cssLoaders(env, 0)) {
     return ([
         ...baseLoaders,
         {
@@ -50,7 +50,7 @@ function sassLoaders(env = DEV, baseLoaders = cssLoaders(env, 0)) {
 
 /**
  * Configures webpack loader for app wide vanilla css, uses style-loader since implements HMR
- * 
+ *
  * @param {object} css - Css loader configuration object
  * @param {array} css.loaders - Array of loaders that will be used to parse the rule, by default will be the cssLoaders function
  * @param {string | array} [css.include] - Directory to be scanned for vanilla css code
@@ -81,14 +81,14 @@ exports.loadCSS = ({ loaders = cssLoaders(), include, exclude } = {}) => {
 
 /**
  * Configures webpack loader for app wide vanilla css, uses style-loader since implements HMR
- * 
+ *
  * @param {object} sass - sass loader configuration object
  * @param {array} sass.loaders - Array of loaders that will be used to parse the rule, by default will be the sassLoaders function
  * @param {string | array} [sass.include] - Directory to be scanned for vanilla sass code
  * @param {string | array} [sass.exclude] - Directories that are not going to be parsed by the sass loader
  * @return {object} - Webpack configuration for the vanilla sass loader
  */
-exports.loadSASS = ({ loaders = sassLoaders(), include, exclude }) => ({
+exports.loadSASS = ({ loaders = sassLoaders(), include, exclude } = {}) => ({
     module: {
         rules: [{
             test: /\.s(c|a)ss$/,
@@ -142,7 +142,7 @@ exports.extractCSS = ({ extractor, env = ENV_PROD, loaders = cssLoaders(env), in
 
 /**
  * Configures purgecss-webpack-plugin to remove unused css.
- * 
+ *
  * @param {Object} pureCssConfig @see https://github.com/FullHuman/purgecss-webpack-plugin#options
  * @return {Object}
 */

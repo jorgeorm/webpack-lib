@@ -1,6 +1,6 @@
 module.exports = exports = {};
 const PurgeCSSPlugin = require('purgecss-webpack-plugin');
-
+const StylelintPlugin = require('stylelint-webpack-plugin');
 const { ENV_DEV, ENV_PROD, ENV_STG } = require('./constants');
 
 
@@ -151,3 +151,25 @@ exports.purgeCSS = (pureCssConfig) => {
 
     return { plugins: [ new PurgeCSSPlugin(pureCssConfig) ] }
 };
+
+/**
+ * Configures stylelint-webpack-plugin to enforce conventions in your styles
+ * @see {@link https://github.com/webpack-contrib/stylelint-webpack-plugin}
+ * @param {object} config - Stylelint object configuration object
+ * @param {string|array} [config.files] - Specify the glob pattern for finding files
+ * @param {boolean} [config.fix] - If true, stylelint will fix as many errors as possible. The fixes are made to the actual source files
+ * @param {string|function} [config.formatter] - Specify the formatter that you would like to use to format your results
+ * @return {object} - Webpack configuration for the stylelint plugin
+ */
+exports stylelintPlugin = ({
+  files = '**/*.s?(a|c)ss',
+  fix = false,
+  formatter = 'string',
+} = {}) => ({
+  plugins: [new StylelintPlugin({
+    files,
+    fix,
+    formatter,
+  })],
+});
+

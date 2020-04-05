@@ -161,7 +161,7 @@ exports.purgeCSS = (pureCssConfig) => {
  * @param {string|function} [config.formatter] - Specify the formatter that you would like to use to format your results
  * @return {object} - Webpack configuration for the stylelint plugin
  */
-exports stylelintPlugin = ({
+exports.stylelintPlugin = ({
   files = '**/*.s?(a|c)ss',
   fix = false,
   formatter = 'string',

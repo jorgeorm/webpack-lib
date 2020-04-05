@@ -18,13 +18,13 @@ function cssLoaders(env = ENV_DEV, importLoaders = 1) {
         {
             loader: 'css-loader', // translates CSS into CommonJS
             options: {
-                sourceMap: env === ENV_PROD || env === ENV_STG, // Loads sourcemaps if exists
+                sourceMap: env === ENV_DEV || env === ENV_STG, // Loads sourcemaps if exists
                 importLoaders,
             }
         },
         {
             loader: 'postcss-loader', // Postprocessor, transforms css
-            options: { sourceMap: env === ENV_PROD || env === ENV_STG } // Loads sourcemaps if exists
+            options: { sourceMap: env === ENV_DEV || env === ENV_STG } // Loads sourcemaps if exists
         }
     ];
 }
@@ -39,7 +39,7 @@ function sassLoaders(env = ENV_DEV, baseLoaders = cssLoaders(env, 0)) {
         ...baseLoaders,
         {
             loader: 'sass-loader', // compiles Sass to CSS
-            options: { sourceMap: env === ENV_PROD || env === ENV_STG } // Loads sourcemaps if exists
+            options: { sourceMap: env === ENV_DEV || env === ENV_STG } // Loads sourcemaps if exists
             // In case is required to pass env vars.
             // options: {
             //     data: '$env: ' + process.env.NODE_ENV + ';'

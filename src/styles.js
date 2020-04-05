@@ -141,6 +141,40 @@ exports.extractCSS = ({ extractor, env = ENV_PROD, loaders = cssLoaders(env), in
 }
 
 /**
+ * Configures webpack loader for app sass and extracts it to a file
+ * @see {@link https://github.com/webpack-contrib/mini-css-extract-plugin}
+ * @param {object} css - Css loader configuration object
+ * @param {MiniCssExtractPlugin} css.extractor - Instance of MiniCssExtractPlugin to be used by the loader, each extractor will generate its own bundle
+ * @param {string} [css.env] - Environment that's going to be used to parse the configuration
+ * @param {array} [css.loaders] - Loaders that are going to be used to process the rule by default loaders will be obtained by the cssLoaders function
+ * @param {string | array} [css.include] - Directory to be scanned for vanilla css code
+ * @param {string | array} [css.exclude] - Directories that are not going to be parsed by the css loader
+ * @param {string} [css.filename] - Pattern that webpack is going to use to name the bundle
+ * @return {object} - Webpack configuration for the vanilla css loader
+ */
+exports.extractSASS = ({ extractor, env = ENV_PROD, loaders = sassLoaders(env), include, exclude, filename='[name].css' } = {}) => {
+    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+    const extractorInstance = extractor || new MiniCssExtractPlugin({
+        filename
+    });
+
+    return {
+        module: {
+            rules: [{
+                test: /\.s(c|a)ss$/,
+                include,
+                exclude,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    ...loaders
+                ]
+            }]
+        },
+        plugins: [extractorInstance]
+    };
+}
+
+/**
  * Configures purgecss-webpack-plugin to remove unused css.
  *
  * @param {Object} pureCssConfig @see https://github.com/FullHuman/purgecss-webpack-plugin#options

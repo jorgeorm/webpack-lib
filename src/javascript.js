@@ -2,6 +2,27 @@ module.exports = exports = {};
 const EslintPlugin = require('eslint-webpack-plugin');
 
 /**
+ * Configures webpack loader for app wide js
+ *
+ * @param {object} config - Babel loader configuration object
+ * @param {string | array} [config.include] - Directory to be scanned for config code
+ * @param {string | array} [config.exclude] - Directories that are not going to be parsed by the babel loader
+ * @return {object} - Webpack configuration for the babel loader
+ */
+exports.loadJS = ({ include, exclude } = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include,
+        exclude,
+        use: 'babel-loader',
+      },
+    ],
+  },
+});
+
+/**
  * Configures eslint-webpack-plugin to enforce conventions in your scripts
  * @see {@link https://github.com/webpack-contrib/eslint-webpack-plugin}
  * @param {object} config - Eslint object configuration object

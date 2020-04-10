@@ -46,3 +46,19 @@ exports.loadVue = ({
     new VueLoaderPlugin(),
   ],
 });
+
+/**
+ * The npm package will export the runtime-only build by default so use
+ * the compiler-included build in order to support non compiled templates,
+ * i.e: creating Vue apps in .js files using the template property
+ * NOTE: It's recemmended to use a manual render function instead, adding
+ * the compiler-included build adds ~25KB to your bundle in prod mode.
+ * @see {@link https://github.com/vuejs/vue/issues/2873}
+ */
+exports.aliasVueCompiler = () => ({
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js'
+    },
+  },
+});

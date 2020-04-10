@@ -1,8 +1,9 @@
 module.exports = exports = {};
-const { loadVue } = require('./vue');
+const { loadVue, aliasVueCompiler } = require('./vue');
 const EslintPlugin = require('eslint-webpack-plugin');
 
 exports.loadVue = loadVue;
+exports.aliasVueCompiler = aliasVueCompiler;
 
 /**
  * Configures webpack loader for app wide js

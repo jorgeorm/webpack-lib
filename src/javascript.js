@@ -17,7 +17,7 @@ exports.loadJS = ({ include, exclude } = {}) => ({
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         include,
         exclude,
         use: 'babel-loader',

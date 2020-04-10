@@ -22,7 +22,7 @@
     "url": "https://github.com/jorgeorm/webpack-lib/issues"
   },
   "homepage": "https://github.com/jorgeorm/webpack-lib#readme",
-  "dependencies": {
+  "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "autoprefixer": "^9.7.4",

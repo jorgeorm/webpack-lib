@@ -72,6 +72,11 @@ exports.loadCSS = ({ loaders = cssLoaders(), include, exclude } = {}) => {
                         issuer: /\.jsx?$/,
                         loader: 'style-loader',
                     },
+                    // Garantees vue-style-loader is called only if asset is called by vue
+                    {
+                        issuer: /\.vue$/,
+                        loader: 'vue-style-loader',
+                    },
                     { use: loaders }
                 ]
             }]
@@ -99,6 +104,11 @@ exports.loadSASS = ({ loaders = sassLoaders(), include, exclude } = {}) => ({
                 {
                     issuer: /\.jsx?$/,
                     loader: 'style-loader',
+                },
+                // Garantees vue-style-loader is called only if asset is called by vue
+                {
+                    issuer: /\.vue$/,
+                    loader: 'vue-style-loader',
                 },
                 { use: loaders }
             ]

@@ -67,10 +67,15 @@ exports.loadCSS = ({ loaders = cssLoaders(), include, exclude } = {}) => {
                 include,
                 exclude,
                 rules: [
-                    // Garantees style-loader is called only if asset is called by js
+                    // Garantees style-loader is called only if asset is called by js or jsx
                     {
-                        issuer: /\.jsx?$/,
+                        issuer: /\.(js|jsx)$/,
                         loader: 'style-loader',
+                    },
+                    // Garantees vue-style-loader is called only if asset is called by vue
+                    {
+                        issuer: /\.vue$/,
+                        loader: 'vue-style-loader',
                     },
                     { use: loaders }
                 ]
@@ -95,10 +100,15 @@ exports.loadSASS = ({ loaders = sassLoaders(), include, exclude } = {}) => ({
             include,
             exclude,
             rules: [
-                // Garantees style-loader is called only if asset is called by js
+                // Garantees style-loader is called only if asset is called by js or jsx
                 {
-                    issuer: /\.jsx?$/,
+                    issuer: /\.(js|jsx)$/,
                     loader: 'style-loader',
+                },
+                // Garantees vue-style-loader is called only if asset is called by vue
+                {
+                    issuer: /\.vue$/,
+                    loader: 'vue-style-loader',
                 },
                 { use: loaders }
             ]
